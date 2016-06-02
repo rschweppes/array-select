@@ -6,9 +6,9 @@ function array_select($key, $array)
         return array_map(function($el) use ($key) { return $el[$key]; }, $array);
     } else {
         $keys = $key;
-        $result = [];
+        $result = array();
         foreach ($array as $elKey => $el) {
-            $resultEl = [];
+            $resultEl = array();
             foreach ($keys as $key) {
                 $resultEl[$key] = $el[$key];
             }
