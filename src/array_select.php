@@ -4,7 +4,9 @@ if(!function_exists('array_select')) {
     function array_select($key, $array)
     {
         if(!is_array($key)) {
-            return array_map(function($el) use ($key) { return $el[$key]; }, $array);
+            return array_map(function($el) use ($key) {
+                return $el[$key];
+            }, $array);
         } else {
             $keys = $key;
             $result = array();
