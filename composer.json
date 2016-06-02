@@ -1,0 +1,8 @@
+{
+    "name": "rschweppes/array_select",
+    "autoload": {
+        "files": ["src/array_select.php"]
+    },
+    "require": {},
+    "version": "1.0.0"
+}
