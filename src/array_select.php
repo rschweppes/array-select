@@ -2,9 +2,9 @@
 
 if(!function_exists('array_select')) {
     /**
-     * Извлечение значений по ключам из массива ассоциативных массивов
+     * Извлечение значений по ключам из массива
      *
-     * @param $key string|array Ключ или массив ключей массива
+     * @param $key string|array Ключ или массив ключей
      * @param $from array Массив
      * @return array
      * @throws Exception
