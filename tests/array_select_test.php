@@ -2,38 +2,30 @@
 
 class ArraySelectTest extends PHPUnit_Framework_TestCase
 {
+    private $src = array(
+        array(
+            'a' => 1,
+            'b' => 2,
+            'c' => 3,
+        ),
+        array(
+            'a' => 4,
+            'b' => 5,
+            'c' => 6,
+        )
+    );
+
     public function testSelectOneKey()
     {
-        $src = array(
-            array(
-                'a' => 'b',
-                'c' => 'd',
-            ),
-            array(
-                'a' => 'e',
-                'c' => 'f',
-            )
-        );
+        $key = 'a';
+        $expected = array(1, 4);
 
-        $expected = array('b', 'e');
-
-        $this->assertEquals($expected, array_select('a', $src));
+        $this->assertEquals($expected, array_select($key, $this->src));
     }
 
     public function testSelectMultiKeys()
     {
-        $src = array(
-            array(
-                'a' => 1,
-                'b' => 2,
-                'c' => 3,
-            ),
-            array(
-                'a' => 4,
-                'b' => 5,
-                'c' => 6,
-            )
-        );
+        $keys = array('a', 'c');
 
         $expected = array(
             array(
@@ -46,34 +38,15 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->assertEquals($expected, array_select(array('a', 'c'), $src));
+        $this->assertEquals($expected, array_select($keys, $this->src));
     }
 
     public function testSelectArrayOfOneKey()
     {
-        $src = array(
-            array(
-                'a' => 1,
-                'b' => 2,
-                'c' => 3,
-            ),
-            array(
-                'a' => 4,
-                'b' => 5,
-                'c' => 6,
-            )
-        );
+        $keys = array('a');
+        $expected = array(array('a' => 1), array('a' => 4));
 
-        $expected = array(
-            array(
-                'a' => 1,
-            ),
-            array(
-                'a' => 4,
-            ),
-        );
-
-        $this->assertEquals($expected, array_select(array('a'), $src));
+        $this->assertEquals($expected, array_select($keys, $this->src));
     }
 
     public function testSelectFromEmptyArray()
@@ -84,21 +57,10 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, array_select('a', $src));
     }
 
-    public function testSelectNotExistingValue()
+    public function testSelectNonexistentKey()
     {
-        $src = array(
-            array(
-                'a' => 1,
-            ),
-            array(
-                'a' => 4,
-            )
-        );
-
-        $expected = array(
-            null,
-            null,
-        );
+        $src = array(array('a' => 1), array('a' => 4));
+        $expected = array(null, null);
 
         $this->assertEquals($expected, array_select('d', $src));
     }
@@ -109,8 +71,8 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
     public function testSelectFromNotArray()
     {
         $src = 'ololo';
-
         $expected = false;
+
         $this->assertEquals($expected, array_select('d', $src));
     }
 }

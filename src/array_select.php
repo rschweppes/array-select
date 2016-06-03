@@ -18,14 +18,14 @@ if(!function_exists('array_select')) {
         $result = array();
         if (!is_array($key)) {
             foreach ($array as $el) {
-                $result[] = $el[$key];
+                $result[] = isset($el[$key]) ? $el[$key] : null;
             }
         } else {
             $keys = $key;
             foreach ($array as $elKey => $el) {
                 $resultEl = array();
                 foreach ($keys as $key) {
-                    $resultEl[$key] = $el[$key];
+                    $resultEl[$key] = isset($el[$key]) ? $el[$key] : null;
                 }
                 $result[$elKey] = $resultEl;
             }
