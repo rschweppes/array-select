@@ -1,5 +1,5 @@
 {
-  "name": "rschweppes/array_select",
+  "name": "rschweppes/array-select",
   "autoload": {
     "files": ["src/array_select.php"]
   },
@@ -10,5 +10,5 @@
     "phpunit/phpunit": "5.5.x-dev"
   },
   "license": "MIT",
-  "version": "1.0.6"
+  "version": "1.0.7"
 }
