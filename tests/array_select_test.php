@@ -119,7 +119,7 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
     public function testSelectOneKeyFromAssoc()
     {
         $key = 'a';
-        $expected = array(1, 4);
+        $expected = array('d' => 1, 'e' => 4);
 
         $this->assertEquals($expected, array_select($key, $this->fromAssoc));
     }
@@ -164,7 +164,7 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
             'd' => array('a' => 1),
             'e' => array('a' => 4),
         );
-        $expected = array(null, null);
+        $expected = array('d' => null, 'e' => null);
 
         $this->assertEquals($expected, array_select('d', $fromAssoc));
     }

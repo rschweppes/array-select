@@ -17,8 +17,8 @@ if(!function_exists('array_select')) {
 
         $result = array();
         if (!is_array($key)) {
-            foreach ($from as $el) {
-                $result[] = isset($el[$key]) ? $el[$key] : null;
+            foreach ($from as $elKey => $el) {
+                $result[$elKey] = isset($el[$key]) ? $el[$key] : null;
             }
         } else {
             $keys = $key;
