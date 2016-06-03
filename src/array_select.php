@@ -11,8 +11,12 @@ if(!function_exists('array_select')) {
      */
     function array_select($key, $from)
     {
+        if(is_array($key) && empty($key) || is_object($key)) {
+            throw new Exception('Illegal $key type');
+        }
+
         if(!is_array($from)) {
-            throw new Exception('Invalid $from type');
+            throw new Exception('Illegal $from type');
         }
 
         $result = array();

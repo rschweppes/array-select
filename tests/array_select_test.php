@@ -65,14 +65,6 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, array_select($keys, $this->from));
     }
 
-    public function testSelectFromEmptyArray()
-    {
-        $from = array();
-        $expected = array();
-
-        $this->assertEquals($expected, array_select('a', $from));
-    }
-
     public function testSelectNonexistentKey()
     {
         $from = array(array('a' => 1), array('a' => 4));
@@ -83,7 +75,6 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
 
     public function testSelectNonexistentMultiKey()
     {
-        $from = array(array('a' => 1), array('a' => 4));
         $expected = array(
             array(
                 'd' => null,
@@ -95,12 +86,11 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->assertEquals($expected, array_select(array('d', 'e'), $from));
+        $this->assertEquals($expected, array_select(array('d', 'e'), $this->from));
     }
 
     public function testSelectNonexistentArrayOfOneKey()
     {
-        $from = array(array('a' => 1), array('a' => 4));
         $expected = array(
             array(
                 'd' => null,
@@ -110,7 +100,7 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->assertEquals($expected, array_select(array('d'), $from));
+        $this->assertEquals($expected, array_select(array('d'), $this->from));
     }
 
     /**
@@ -148,14 +138,6 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
         $expected = array('d' => array('a' => 1), 'e' => array('a' => 4));
 
         $this->assertEquals($expected, array_select($keys, $this->fromAssoc));
-    }
-
-    public function testSelectFromEmptyArrayFromAssoc()
-    {
-        $fromAssoc = array();
-        $expected = array();
-
-        $this->assertEquals($expected, array_select('a', $fromAssoc));
     }
 
     public function testSelectNonexistentKeyFromAssoc()
@@ -207,14 +189,61 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, array_select(array('d'), $fromAssoc));
     }
 
+    public function testSelectFromEmptyArray()
+    {
+        $from = array();
+        $expected = array();
+
+        $this->assertEquals($expected, array_select('a', $from));
+    }
+
+    public function testSelectMultiKeyFromEmptyArray()
+    {
+        $from = array();
+        $expected = array();
+
+        $this->assertEquals($expected, array_select(array('a', 'b'), $from));
+    }
+
+    public function testSelectArrayOfOneKeyFromEmptyArray()
+    {
+        $from = array();
+        $expected = array();
+
+        $this->assertEquals($expected, array_select(array('a'), $from));
+    }
+
     /**
      * @expectedException Exception
+     * @expectedExceptionMessage Illegal $key type
+     */
+    public function testSelectEmptyArrayFromEmptyArray()
+    {
+        $from = array();
+        $expected = array();
+
+        $this->assertEquals($expected, array_select(array(), $from));
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Illegal $key type
+     */
+    public function testSelectObjectFromArray()
+    {
+        $expected = false;
+        $this->assertEquals($expected, array_select((object)'d', array()));
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Illegal $from type
      */
     public function testSelectFromNotArray()
     {
-        $src = 'ololo';
+        $from = 'ololo';
         $expected = false;
 
-        $this->assertEquals($expected, array_select('d', $src));
+        $this->assertEquals($expected, array_select('d', $from));
     }
 }
