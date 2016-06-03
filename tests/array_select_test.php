@@ -160,7 +160,10 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
 
     public function testSelectNonexistentKeyFromAssoc()
     {
-        $fromAssoc = array(array('a' => 1), array('a' => 4));
+        $fromAssoc = array(
+            'd' => array('a' => 1),
+            'e' => array('a' => 4),
+        );
         $expected = array(null, null);
 
         $this->assertEquals($expected, array_select('d', $fromAssoc));
@@ -168,13 +171,16 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
 
     public function testSelectNonexistentMultiKeyFromAssoc()
     {
-        $fromAssoc = array(array('a' => 1), array('a' => 4));
+        $fromAssoc = array(
+            'd1' => array('a' => 1),
+            'e1' => array('a' => 4),
+        );
         $expected = array(
-            array(
+            'd1' => array(
                 'd' => null,
                 'e' => null,
             ),
-            array(
+            'e1' => array(
                 'd' => null,
                 'e' => null,
             ),
@@ -185,12 +191,15 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
 
     public function testSelectNonexistentArrayOfOneKeyFromAssoc()
     {
-        $fromAssoc = array(array('a' => 1), array('a' => 4));
+        $fromAssoc = array(
+            'd1' => array('a' => 1),
+            'e1' => array('a' => 4),
+        );
         $expected = array(
-            array(
+            'd1' => array(
                 'd' => null,
             ),
-            array(
+            'e1' => array(
                 'd' => null,
             ),
         );
