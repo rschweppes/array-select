@@ -1,6 +1,13 @@
 <?php
 
 if(!function_exists('array_select')) {
+    /**
+     * Извлечение значений по ключам из массива ассоциативных массивов
+     *
+     * @param $key string|array Ключ или массив ключей массива
+     * @param $array array Массив
+     * @return array
+     */
     function array_select($key, $array)
     {
         if(!is_array($key)) {
