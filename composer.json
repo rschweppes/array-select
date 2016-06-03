@@ -9,6 +9,13 @@
   "require-dev": {
     "phpunit/phpunit": "5.5.x-dev"
   },
+  "keywords": [
+    "array",
+    "select",
+    "array-select",
+    "array_select",
+    "array select"
+  ],
   "license": "MIT",
-  "version": "1.0.7"
+  "version": "1.0.8"
 }
