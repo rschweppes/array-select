@@ -2,7 +2,7 @@
 
 class ArraySelectTest extends PHPUnit_Framework_TestCase
 {
-    private $src = array(
+    private $from = array(
         array(
             'a' => 1,
             'b' => 2,
@@ -15,12 +15,28 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
         )
     );
 
+    private $fromAssoc = array(
+        'd' => array(
+            'a' => 1,
+            'b' => 2,
+            'c' => 3,
+        ),
+        'e' => array(
+            'a' => 4,
+            'b' => 5,
+            'c' => 6,
+        )
+    );
+
+    /**
+     * Выборка из обычных массивов
+     */
     public function testSelectOneKey()
     {
         $key = 'a';
         $expected = array(1, 4);
 
-        $this->assertEquals($expected, array_select($key, $this->src));
+        $this->assertEquals($expected, array_select($key, $this->from));
     }
 
     public function testSelectMultiKeys()
@@ -38,7 +54,7 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->assertEquals($expected, array_select($keys, $this->src));
+        $this->assertEquals($expected, array_select($keys, $this->from));
     }
 
     public function testSelectArrayOfOneKey()
@@ -46,28 +62,28 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
         $keys = array('a');
         $expected = array(array('a' => 1), array('a' => 4));
 
-        $this->assertEquals($expected, array_select($keys, $this->src));
+        $this->assertEquals($expected, array_select($keys, $this->from));
     }
 
     public function testSelectFromEmptyArray()
     {
-        $src = array();
+        $from = array();
         $expected = array();
 
-        $this->assertEquals($expected, array_select('a', $src));
+        $this->assertEquals($expected, array_select('a', $from));
     }
 
     public function testSelectNonexistentKey()
     {
-        $src = array(array('a' => 1), array('a' => 4));
+        $from = array(array('a' => 1), array('a' => 4));
         $expected = array(null, null);
 
-        $this->assertEquals($expected, array_select('d', $src));
+        $this->assertEquals($expected, array_select('d', $from));
     }
 
     public function testSelectNonexistentMultiKey()
     {
-        $src = array(array('a' => 1), array('a' => 4));
+        $from = array(array('a' => 1), array('a' => 4));
         $expected = array(
             array(
                 'd' => null,
@@ -79,12 +95,12 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->assertEquals($expected, array_select(array('d', 'e'), $src));
+        $this->assertEquals($expected, array_select(array('d', 'e'), $from));
     }
 
     public function testSelectNonexistentArrayOfOneKey()
     {
-        $src = array(array('a' => 1), array('a' => 4));
+        $from = array(array('a' => 1), array('a' => 4));
         $expected = array(
             array(
                 'd' => null,
@@ -94,7 +110,92 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->assertEquals($expected, array_select(array('d'), $src));
+        $this->assertEquals($expected, array_select(array('d'), $from));
+    }
+
+    /**
+     * Выборка из ассоциативных массивов
+     */
+    public function testSelectOneKeyFromAssoc()
+    {
+        $key = 'a';
+        $expected = array(1, 4);
+
+        $this->assertEquals($expected, array_select($key, $this->fromAssoc));
+    }
+
+    public function testSelectMultiKeysFromAssoc()
+    {
+        $keys = array('a', 'c');
+
+        $expected = array(
+            'd' => array(
+                'a' => 1,
+                'c' => 3,
+            ),
+            'e' => array(
+                'a' => 4,
+                'c' => 6,
+            ),
+        );
+
+        $this->assertEquals($expected, array_select($keys, $this->fromAssoc));
+    }
+
+    public function testSelectArrayOfOneKeyFromAssoc()
+    {
+        $keys = array('a');
+        $expected = array('d' => array('a' => 1), 'e' => array('a' => 4));
+
+        $this->assertEquals($expected, array_select($keys, $this->fromAssoc));
+    }
+
+    public function testSelectFromEmptyArrayFromAssoc()
+    {
+        $fromAssoc = array();
+        $expected = array();
+
+        $this->assertEquals($expected, array_select('a', $fromAssoc));
+    }
+
+    public function testSelectNonexistentKeyFromAssoc()
+    {
+        $fromAssoc = array(array('a' => 1), array('a' => 4));
+        $expected = array(null, null);
+
+        $this->assertEquals($expected, array_select('d', $fromAssoc));
+    }
+
+    public function testSelectNonexistentMultiKeyFromAssoc()
+    {
+        $fromAssoc = array(array('a' => 1), array('a' => 4));
+        $expected = array(
+            array(
+                'd' => null,
+                'e' => null,
+            ),
+            array(
+                'd' => null,
+                'e' => null,
+            ),
+        );
+
+        $this->assertEquals($expected, array_select(array('d', 'e'), $fromAssoc));
+    }
+
+    public function testSelectNonexistentArrayOfOneKeyFromAssoc()
+    {
+        $fromAssoc = array(array('a' => 1), array('a' => 4));
+        $expected = array(
+            array(
+                'd' => null,
+            ),
+            array(
+                'd' => null,
+            ),
+        );
+
+        $this->assertEquals($expected, array_select(array('d'), $fromAssoc));
     }
 
     /**
