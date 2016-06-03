@@ -2,16 +2,21 @@
 
 if(!function_exists('array_select')) {
     /**
-     * Извлечение значений по ключам из массива ассоциативных массивов
+     * РР·РІР»РµС‡РµРЅРёРµ Р·РЅР°С‡РµРЅРёР№ РїРѕ РєР»СЋС‡Р°Рј РёР· РјР°СЃСЃРёРІР° Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹С… РјР°СЃСЃРёРІРѕРІ
      *
-     * @param $key string|array Ключ или массив ключей массива
-     * @param $array array Массив
+     * @param $key string|array РљР»СЋС‡ РёР»Рё РјР°СЃСЃРёРІ РєР»СЋС‡РµР№ РјР°СЃСЃРёРІР°
+     * @param $array array РњР°СЃСЃРёРІ
      * @return array
+     * @throws Exception
      */
     function array_select($key, $array)
     {
+        if(!is_array($array)) {
+            throw new Exception('Invalid $array type');
+        }
+
         $result = array();
-        if(!is_array($key)) {
+        if (!is_array($key)) {
             foreach ($array as $el) {
                 $result[] = $el[$key];
             }
