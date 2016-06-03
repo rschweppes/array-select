@@ -65,6 +65,38 @@ class ArraySelectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, array_select('d', $src));
     }
 
+    public function testSelectNonexistentMultiKey()
+    {
+        $src = array(array('a' => 1), array('a' => 4));
+        $expected = array(
+            array(
+                'd' => null,
+                'e' => null,
+            ),
+            array(
+                'd' => null,
+                'e' => null,
+            ),
+        );
+
+        $this->assertEquals($expected, array_select(array('d', 'e'), $src));
+    }
+
+    public function testSelectNonexistentArrayOfOneKey()
+    {
+        $src = array(array('a' => 1), array('a' => 4));
+        $expected = array(
+            array(
+                'd' => null,
+            ),
+            array(
+                'd' => null,
+            ),
+        );
+
+        $this->assertEquals($expected, array_select(array('d'), $src));
+    }
+
     /**
      * @expectedException Exception
      */
